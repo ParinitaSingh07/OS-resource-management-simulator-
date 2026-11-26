@@ -1,0 +1,16 @@
+# Deadlocked state: every process holds resources and waits for a resource
+# held by the other, so neither can ever finish.
+#   P1 holds (1,1), still needs (1,0)   -> total resources (2,2)
+#   P2 holds (1,1), still needs (0,1)
+#   Available is (0,0), so no request fits and both are deadlocked.
+processes P1 P2
+resources A B
+available 0 0
+
+allocation
+P1 1 1
+P2 1 1
+
+max
+P1 2 1
+P2 1 2

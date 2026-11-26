@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OS Resource Management Simulator — Web GUI</title>
+  <link rel="stylesheet" href="static/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M9 10h14M9 16h14M9 22h14' stroke='%2338bdf8' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <!-- ---------------------------------------------------------------- -->
+    <!-- Sidebar                                                           -->
+    <!-- ---------------------------------------------------------------- -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round">
+            <rect x="3" y="4" width="18" height="5" rx="1.5" />
+            <rect x="3" y="11" width="18" height="4" rx="1.5" />
+            <rect x="3" y="17" width="18" height="4" rx="1.5" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <strong>OS Simulator</strong>
+          <span>Resource Management</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Sections">
+        <button class="nav-item is-active" data-view="overview">
+          <span class="nav-ico">◆</span> Overview
+        </button>
+        <button class="nav-item" data-view="cpu">
+          <span class="nav-ico">⚙</span> CPU Scheduling
+        </button>
+        <button class="nav-item" data-view="memory">
+          <span class="nav-ico">▤</span> Memory
+        </button>
+        <button class="nav-item" data-view="deadlock">
+          <span class="nav-ico">⛒</span> Deadlock
+        </button>
+        <button class="nav-item" data-view="disk">
+          <span class="nav-ico">◎</span> Disk Scheduling
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <p class="muted small">Python + Bash capstone<br />Terminal menu: <code>python3 main.py</code></p>
+        <p class="badge-row"><span class="badge">offline</span><span class="badge">stdlib only</span></p>
+      </div>
+    </aside>
+
+    <!-- ---------------------------------------------------------------- -->
+    <!-- Main                                                              -->
+    <!-- ---------------------------------------------------------------- -->
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="page-title">Overview</h1>
+          <p id="page-sub" class="muted">Four OS subsystems, one simulator — CPU, memory, deadlock and disk.</p>
+        </div>
+        <div class="topbar-right">
+          <span class="pill" id="server-pill"><span class="dot"></span> checking backend…</span>
+        </div>
+      </header>
+
+      <!-- ============================ OVERVIEW ======================== -->
+      <section class="view is-active" id="view-overview">
+        <div class="hero card">
+          <div class="hero-copy">
+            <p class="eyebrow">B.Tech CSE · Operating Systems</p>
+            <h2>OS Resource Management Simulator</h2>
+            <p>
+              Run the classic operating-system algorithms on the bundled textbook
+              datasets or on your own input, and see every intermediate number —
+              Gantt charts, partition maps, Banker's tables and head movement.
+            </p>
+            <div class="hero-actions">
+              <button class="btn primary" data-goto="cpu">Try CPU scheduling</button>
+              <button class="btn ghost" data-goto="disk">Disk scheduling</button>
+            </div>
+          </div>
+          <div class="hero-figure" aria-hidden="true">
+            <div class="tile t1">CPU</div>
+            <div class="tile t2">MEM</div>
+            <div class="tile t3">DL</div>
+            <div class="tile t4">DISK</div>
+          </div>
+        </div>
+
+        <div class="grid-4" id="overview-cards">
+          <article class="card subsystem" data-goto="cpu">
+            <span class="chip">01 · CPU</span>
+            <h3>Scheduling</h3>
+            <p>FCFS, SJF, SRTF, Priority and Round Robin with waiting, turnaround and response times.</p>
+            <span class="link">Open →</span>
+          </article>
+          <article class="card subsystem" data-goto="memory">
+            <span class="chip">02 · Memory</span>
+            <h3>Allocation</h3>
+            <p>First, Best and Worst Fit in fixed and dynamic partitions, with fragmentation accounting.</p>
+            <span class="link">Open →</span>
+          </article>
+          <article class="card subsystem" data-goto="deadlock">
+            <span class="chip">03 · Deadlock</span>
+            <h3>Avoidance</h3>
+            <p>Banker's safety algorithm, resource-request checks and deadlock detection traces.</p>
+            <span class="link">Open →</span>
+          </article>
+          <article class="card subsystem" data-goto="disk">
+            <span class="chip">04 · Disk</span>
+            <h3>Scheduling</h3>
+            <p>FCFS, SSTF, SCAN and C-SCAN head movement, with boundary travel and the C-SCAN jump.</p>
+            <span class="link">Open →</span>
+          </article>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>How this page is wired</h3>
+            <ul class="ticks">
+              <li>This GUI is a front end only — it calls the same Python modules as the terminal menu.</li>
+              <li>Results are computed live in Python and returned as JSON; nothing is hard-coded.</li>
+              <li>Charts are drawn in the browser from those numbers (CSS/SVG), so no plotting library is needed here.</li>
+              <li>Datasets come from <code>data/</code>; the editor lets you change them for a run without touching the file.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Command line, still available</h3>
+            <pre class="code">python3 main.py            # terminal menu
+python3 main.py --report   # rebuild report.pdf
+bash scripts/test.sh       # 119 unit tests
+python3 webapp/server.py   # this GUI</pre>
+            <p class="muted small">Stop the server with Ctrl+C in its terminal.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== CPU =========================== -->
+      <section class="view" id="view-cpu">
+        <div class="workspace">
+          <div class="card controls">
+            <h3>Configuration</h3>
+            <label class="field">
+              <span>Dataset</span>
+              <select id="cpu-dataset"></select>
+            </label>
+            <label class="field">
+              <span>Algorithm</span>
+              <select id="cpu-algorithm">
+                <option value="ALL" selected>Compare all algorithms</option>
+                <option value="FCFS">FCFS</option>
+                <option value="SJF">SJF</option>
+                <option value="SRTF">SRTF</option>
+                <option value="PRIORITY">Priority</option>
+                <option value="RR">Round Robin</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Time quantum <em>(Round Robin)</em></span>
+              <input id="cpu-quantum" type="number" min="1" max="1000" value="4" />
+            </label>
+            <details class="editor">
+              <summary>Edit the dataset</summary>
+              <p class="muted small">One process per line: <code>pid arrival burst [priority]</code></p>
+              <textarea id="cpu-text" spellcheck="false" rows="7"></textarea>
+              <label class="check"><input type="checkbox" id="cpu-use-text" /> Use this text for the run</label>
+            </details>
+            <button class="btn primary wide" id="cpu-run">Run simulation</button>
+            <p class="status" id="cpu-status"></p>
+          </div>
+
+          <div class="results" id="cpu-results">
+            <div class="empty card">
+              <h3>Nothing computed yet</h3>
+              <p>Pick an algorithm and press <strong>Run simulation</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ MEMORY ========================== -->
+      <section class="view" id="view-memory">
+        <div class="workspace">
+          <div class="card controls">
+            <h3>Configuration</h3>
+            <label class="field">
+              <span>Allocation model</span>
+              <select id="mem-model">
+                <option value="fixed" selected>Fixed partitions</option>
+                <option value="dynamic">Dynamic partitions</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Dataset</span>
+              <select id="mem-dataset"></select>
+            </label>
+            <label class="field">
+              <span>Algorithm</span>
+              <select id="mem-algorithm">
+                <option value="ALL" selected>Compare all algorithms</option>
+                <option value="FIRST">First Fit</option>
+                <option value="BEST">Best Fit</option>
+                <option value="WORST">Worst Fit</option>
+              </select>
+            </label>
+            <details class="editor">
+              <summary>Edit the dataset</summary>
+              <p class="muted small">A <code>partitions …</code> line, then <code>pid size</code> per line.</p>
+              <textarea id="mem-text" spellcheck="false" rows="8"></textarea>
+              <label class="check"><input type="checkbox" id="mem-use-text" /> Use this text for the run</label>
+            </details>
+            <button class="btn primary wide" id="mem-run">Run simulation</button>
+            <p class="status" id="mem-status"></p>
+          </div>
+          <div class="results" id="mem-results">
+            <div class="empty card">
+              <h3>Nothing computed yet</h3>
+              <p>Choose a model and press <strong>Run simulation</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== DEADLOCK ========================= -->
+      <section class="view" id="view-deadlock">
+        <div class="workspace">
+          <div class="card controls">
+            <h3>Configuration</h3>
+            <label class="field">
+              <span>Dataset</span>
+              <select id="dl-dataset"></select>
+            </label>
+            <div class="field">
+              <span>Analysis</span>
+              <div class="segmented" role="tablist" id="dl-action">
+                <button class="seg is-active" data-action="safety">Safety</button>
+                <button class="seg" data-action="request">Request</button>
+                <button class="seg" data-action="detect">Detect</button>
+              </div>
+            </div>
+            <div id="dl-request-fields" class="hidden">
+              <label class="field">
+                <span>Process</span>
+                <select id="dl-pid"></select>
+              </label>
+              <label class="field">
+                <span>Request vector</span>
+                <input id="dl-vector" type="text" placeholder="e.g. 1 0 2" />
+              </label>
+            </div>
+            <details class="editor">
+              <summary>Edit the dataset</summary>
+              <p class="muted small">Banker's table format: <code>processes</code>, <code>resources</code>, <code>available</code>, then <code>allocation</code> and <code>max</code> blocks.</p>
+              <textarea id="dl-text" spellcheck="false" rows="9"></textarea>
+              <label class="check"><input type="checkbox" id="dl-use-text" /> Use this text for the run</label>
+            </details>
+            <button class="btn primary wide" id="dl-run">Run analysis</button>
+            <p class="status" id="dl-status"></p>
+          </div>
+          <div class="results" id="dl-results">
+            <div class="empty card">
+              <h3>Nothing computed yet</h3>
+              <p>Choose an analysis and press <strong>Run analysis</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= DISK =========================== -->
+      <section class="view" id="view-disk">
+        <div class="workspace">
+          <div class="card controls">
+            <h3>Configuration</h3>
+            <label class="field">
+              <span>Dataset</span>
+              <select id="disk-dataset"></select>
+            </label>
+            <label class="field">
+              <span>Algorithm</span>
+              <select id="disk-algorithm">
+                <option value="ALL" selected>Compare all algorithms</option>
+                <option value="FCFS">FCFS</option>
+                <option value="SSTF">SSTF</option>
+                <option value="SCAN">SCAN</option>
+                <option value="CSCAN">C-SCAN</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Head direction <em>(SCAN / C-SCAN)</em></span>
+              <select id="disk-direction">
+                <option value="up" selected>Up — toward the highest cylinder</option>
+                <option value="down">Down — toward cylinder 0</option>
+              </select>
+            </label>
+            <details class="editor">
+              <summary>Edit the dataset</summary>
+              <p class="muted small"><code>head</code>, <code>disk_size</code> and <code>requests</code> lines.</p>
+              <textarea id="disk-text" spellcheck="false" rows="6"></textarea>
+              <label class="check"><input type="checkbox" id="disk-use-text" /> Use this text for the run</label>
+            </details>
+            <button class="btn primary wide" id="disk-run">Run simulation</button>
+            <p class="status" id="disk-status"></p>
+          </div>
+          <div class="results" id="disk-results">
+            <div class="empty card">
+              <h3>Nothing computed yet</h3>
+              <p>Pick an algorithm and press <strong>Run simulation</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>OS Resource Management Simulator · web front end over the same Python engines</span>
+        <span id="foot-clock"></span>
+      </footer>
+    </main>
+  </div>
+  <script src="static/app.js"></script>
+</body>
+</html>

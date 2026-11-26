@@ -1,0 +1,9 @@
+# Disk scheduling demo dataset (Silberschatz, Figure "FCFS/SSTF/SCAN/C-SCAN")
+# The classic request queue with the head starting at cylinder 53.
+head 53
+
+# number of cylinders on the disk: valid cylinders are 0 .. disk_size - 1
+disk_size 200
+
+# requested cylinders, in arrival order
+requests 98 183 37 122 14 124 65 67

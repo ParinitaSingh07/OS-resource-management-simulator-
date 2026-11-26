@@ -1,0 +1,30 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# ---- Generated artefacts ----
+# Outputs are recreated by running the simulator. Keep the folders, not the files.
+outputs/charts/*
+outputs/reports/*
+outputs/logs/*
+!outputs/charts/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/logs/.gitkeep
+
+# ---- Screenshots kept intentionally (evidence for the report) ----
+# (screenshots/ is tracked on purpose)
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ---- Secrets (defensive) ----
+.env

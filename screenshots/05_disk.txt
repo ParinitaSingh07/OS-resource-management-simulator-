@@ -1,0 +1,135 @@
+Terminal transcript — real run. Reproduce with: python3 main.py -> 4 (Disk) -> 1 (disk_sample.txt) -> direction up
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_153917.log
+  report.pdf: not built yet
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+==============================================================================
+DISK SCHEDULING
+==============================================================================
+
+  Disk datasets:
+   1) disk_sample.txt — Disk scheduling demo dataset (Silberschatz, Figure "FCFS/SSTF/SCAN/C-SCAN")
+   2) disk_sample2.txt — Second disk dataset: a different queue and head position, used to show that
+   0) back to the main menu
+   c) enter a custom dataset now
+  Choose:   Sweep direction for SCAN / C-SCAN (up/down) [up]: 
+==============================================================================
+disk_sample.txt — FCFS
+==============================================================================
+Algorithm : FCFS
+  #               MOVE   DIST   NOTE
+  --------------------------------------
+  1           53 -> 98     45   
+  2          98 -> 183     85   
+  3          183 -> 37    146   
+  4          37 -> 122     85   
+  5          122 -> 14    108   
+  6          14 -> 124    110   
+  7          124 -> 65     59   
+  8           65 -> 67      2   
+  --------------------------------------
+  Served order  : 98, 183, 37, 122, 14, 124, 65, 67
+  Head path     : 53 -> 98 -> 183 -> 37 -> 122 -> 14 -> 124 -> 65 -> 67
+  Total movement: 45 + 85 + 146 + 85 + 108 + 110 + 59 + 2 = 640 cylinders
+  Average       : 640 / 8 requests = 80.00 cylinders
+
+==============================================================================
+disk_sample.txt — SSTF
+==============================================================================
+Algorithm : SSTF
+  #               MOVE   DIST   NOTE
+  --------------------------------------
+  1           53 -> 65     12   
+  2           65 -> 67      2   
+  3           67 -> 37     30   
+  4           37 -> 14     23   
+  5           14 -> 98     84   
+  6          98 -> 122     24   
+  7         122 -> 124      2   
+  8         124 -> 183     59   
+  --------------------------------------
+  Served order  : 65, 67, 37, 14, 98, 122, 124, 183
+  Head path     : 53 -> 65 -> 67 -> 37 -> 14 -> 98 -> 122 -> 124 -> 183
+  Total movement: 12 + 2 + 30 + 23 + 84 + 24 + 2 + 59 = 236 cylinders
+  Average       : 236 / 8 requests = 29.50 cylinders
+
+==============================================================================
+disk_sample.txt — SCAN
+==============================================================================
+Algorithm : SCAN  (direction = up)
+  #               MOVE   DIST   NOTE
+  --------------------------------------
+  1           53 -> 65     12   
+  2           65 -> 67      2   
+  3           67 -> 98     31   
+  4          98 -> 122     24   
+  5         122 -> 124      2   
+  6         124 -> 183     59   
+  7         183 -> 199     16   boundary
+  8          199 -> 37    162   
+  9           37 -> 14     23   
+  --------------------------------------
+  Served order  : 65, 67, 98, 122, 124, 183, 37, 14
+  Head path     : 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 199 -> 37 -> 14
+  Total movement: 12 + 2 + 31 + 24 + 2 + 59 + 16 + 162 + 23 = 331 cylinders
+  Average       : 331 / 8 requests = 41.38 cylinders
+
+==============================================================================
+disk_sample.txt — C-SCAN
+==============================================================================
+Algorithm : CSCAN  (direction = up)
+  #               MOVE   DIST   NOTE
+  --------------------------------------
+  1           53 -> 65     12   
+  2           65 -> 67      2   
+  3           67 -> 98     31   
+  4          98 -> 122     24   
+  5         122 -> 124      2   
+  6         124 -> 183     59   
+  7         183 -> 199     16   boundary
+  8            0 -> 14     14   
+  9           14 -> 37     23   
+  --------------------------------------
+  Served order  : 65, 67, 98, 122, 124, 183, 14, 37
+  Head path     : 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 199 -> 14 -> 37
+  Total movement: 12 + 2 + 31 + 24 + 2 + 59 + 16 + 14 + 23 = 183 cylinders
+  Average       : 183 / 8 requests = 22.88 cylinders
+  C-SCAN jump   : 199 cylinders (not counted; charged path = 382)
+
+==============================================================================
+disk_sample.txt — COMPARISON
+==============================================================================
+ALGORITHM     TOTAL   AVG/REQ  REQUESTS    JUMP
+-----------------------------------------------
+FCFS            640     80.00         8       0
+SSTF            236     29.50         8       0
+SCAN            331     41.38         8       0
+CSCAN           183     22.88         8     199
+Lowest total movement: CSCAN (183 cylinders). C-SCAN's jump is excluded above; add it for the charged path.
+    chart saved: outputs/charts/disk_comparison.png
+    chart saved: outputs/charts/disk_paths.png
+
+  Press Enter to continue...
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_153917.log

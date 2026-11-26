@@ -1,0 +1,101 @@
+Terminal transcript — real run. Reproduce with: python3 main.py -> 2 (Memory) -> 1 -> model fixed
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_153916.log
+  report.pdf: not built yet
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+==============================================================================
+MEMORY MANAGEMENT
+==============================================================================
+
+  Memory datasets:
+   1) memory_sample.txt — Memory management demo dataset (Silberschatz-style fragmentation example)
+   0) back to the main menu
+   c) enter a custom dataset now
+  Choose:   Allocation model (fixed/dynamic) [fixed]: 
+==============================================================================
+memory_sample.txt — FIRST (fixed)
+==============================================================================
+Algorithm : FIRST    model: FIXED
+  PID      REQ  BLOCK  ALLOC  INT.FRAG     STATUS   REASON
+  --------------------------------------------------------
+  P1       212      1    500       288  ALLOCATED   
+  P2       417      4    600       183  ALLOCATED   
+  P3       112      2    200        88  ALLOCATED   
+  P4       426      -      0         0   REJECTED   no free block is large enough
+  --------------------------------------------------------
+  Memory    : total 1700   reserved by blocks 1300   free 400
+  Placed    : 741 units of process data in 3/4 process(es)
+  Fragments : internal 559   external 400 (2 stranded block(s))
+  Utilisation: 43.59%
+  Layout    : [0:100 FREE]  [1:500 P1(212)]  [2:200 P3(112)]  [3:300 FREE]  [4:600 P2(417)]
+
+==============================================================================
+memory_sample.txt — BEST (fixed)
+==============================================================================
+Algorithm : BEST    model: FIXED
+  PID      REQ  BLOCK  ALLOC  INT.FRAG     STATUS   REASON
+  --------------------------------------------------------
+  P1       212      3    300        88  ALLOCATED   
+  P2       417      1    500        83  ALLOCATED   
+  P3       112      2    200        88  ALLOCATED   
+  P4       426      4    600       174  ALLOCATED   
+  --------------------------------------------------------
+  Memory    : total 1700   reserved by blocks 1600   free 100
+  Placed    : 1167 units of process data in 4/4 process(es)
+  Fragments : internal 433   external 0 (0 stranded block(s))
+  Utilisation: 68.65%
+  Layout    : [0:100 FREE]  [1:500 P2(417)]  [2:200 P3(112)]  [3:300 P1(212)]  [4:600 P4(426)]
+
+==============================================================================
+memory_sample.txt — WORST (fixed)
+==============================================================================
+Algorithm : WORST    model: FIXED
+  PID      REQ  BLOCK  ALLOC  INT.FRAG     STATUS   REASON
+  --------------------------------------------------------
+  P1       212      4    600       388  ALLOCATED   
+  P2       417      1    500        83  ALLOCATED   
+  P3       112      3    300       188  ALLOCATED   
+  P4       426      -      0         0   REJECTED   no free block is large enough
+  --------------------------------------------------------
+  Memory    : total 1700   reserved by blocks 1400   free 300
+  Placed    : 741 units of process data in 3/4 process(es)
+  Fragments : internal 659   external 300 (2 stranded block(s))
+  Utilisation: 43.59%
+  Layout    : [0:100 FREE]  [1:500 P2(417)]  [2:200 FREE]  [3:300 P3(112)]  [4:600 P1(212)]
+
+==============================================================================
+memory_sample.txt — COMPARISON (fixed)
+==============================================================================
+Model: FIXED partitions
+ALGORITHM    PLACED   UTIL %  INT.FRAG  EXT.FRAG    FREE  REJECTED
+------------------------------------------------------------------
+FIRST             3    43.59       559       400     400         1
+BEST              4    68.65       433         0     100         0
+WORST             3    43.59       659       300     300         1
+Best on this dataset: BEST (4 placed, 68.65% utilisation)
+    chart saved: outputs/charts/memory_fixed_comparison.png
+
+  Press Enter to continue...
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_153916.log

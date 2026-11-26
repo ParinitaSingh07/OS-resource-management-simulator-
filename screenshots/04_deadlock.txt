@@ -1,0 +1,80 @@
+Terminal transcript — real run. Reproduce with: python3 main.py -> 3 (Deadlock) -> 1 (deadlock_sample.txt)
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_153917.log
+  report.pdf: not built yet
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+==============================================================================
+DEADLOCK MANAGEMENT
+==============================================================================
+
+  Deadlock datasets:
+   1) deadlock_sample.txt — Deadlock / Banker's algorithm demo dataset
+   2) deadlock_unsafe.txt — Deadlocked state: every process holds resources and waits for a resource
+   0) back to the main menu
+   c) enter a custom dataset now
+  Choose: 
+==============================================================================
+deadlock_sample.txt — RESOURCE STATE
+==============================================================================
+PID         Allocation             Max            Need
+------------------------------------------------------
+P0           (0, 1, 0)       (7, 5, 3)       (7, 4, 3)
+P1           (2, 0, 0)       (3, 2, 2)       (1, 2, 2)
+P2           (3, 0, 2)       (9, 0, 2)       (6, 0, 0)
+P3           (2, 1, 1)       (2, 2, 2)       (0, 1, 1)
+P4           (0, 0, 2)       (4, 3, 3)       (4, 3, 1)
+------------------------------------------------------
+Available: (3, 3, 2)    Total resources: (10, 5, 7)
+
+==============================================================================
+deadlock_sample.txt — BANKER'S SAFETY ALGORITHM
+==============================================================================
+PID             Work          Need     Work + Allocation
+--------------------------------------------------------
+P1         (3, 3, 2)     (1, 2, 2)             (5, 3, 2)
+P3         (5, 3, 2)     (0, 1, 1)             (7, 4, 3)
+P4         (7, 4, 3)     (4, 3, 1)             (7, 4, 5)
+P0         (7, 4, 5)     (7, 4, 3)             (7, 5, 5)
+P2         (7, 5, 5)     (6, 0, 0)            (10, 5, 7)
+--------------------------------------------------------
+Verdict: SAFE: P1 -> P3 -> P4 -> P0 -> P2
+
+==============================================================================
+deadlock_sample.txt — DEADLOCK DETECTION
+==============================================================================
+Request source: Need (Max - Allocation)
+PID             Work       Request     Work + Allocation
+--------------------------------------------------------
+P1         (3, 3, 2)     (1, 2, 2)             (5, 3, 2)
+P3         (5, 3, 2)     (0, 1, 1)             (7, 4, 3)
+P4         (7, 4, 3)     (4, 3, 1)             (7, 4, 5)
+P0         (7, 4, 5)     (7, 4, 3)             (7, 5, 5)
+P2         (7, 5, 5)     (6, 0, 0)            (10, 5, 7)
+--------------------------------------------------------
+Finish order: P1 -> P3 -> P4 -> P0 -> P2
+Verdict: NO DEADLOCK
+  Test a resource request with Banker's algorithm (y/n) [n]: 
+  Press Enter to continue...
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_153917.log

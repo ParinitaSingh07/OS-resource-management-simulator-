@@ -1,0 +1,8 @@
+# Memory management demo dataset (Silberschatz-style fragmentation example)
+# partitions: sizes of the contiguous memory blocks, lowest address first
+partitions 100 500 200 300 600
+# processes: pid and the memory each one requests, in arrival order
+P1 212
+P2 417
+P3 112
+P4 426

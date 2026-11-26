@@ -1,0 +1,80 @@
+Terminal transcript — real run. Reproduce with: python3 main.py -> 5 (Performance Analysis)
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_154428.log
+  report.pdf: present
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+==============================================================================
+PERFORMANCE ANALYSIS — ALL FOUR SUBSYSTEMS
+==============================================================================
+
+CPU — dataset cpu_sample.txt, Round Robin quantum 4
+ALGORITHM     AVG WT  AVG TAT   AVG RT    CPU %   THR/PU   SPAN   IDLE
+----------------------------------------------------------------------
+FCFS           11.40    17.00    11.40   100.00   0.1786     28      0
+SJF             8.20    13.80     8.20   100.00   0.1786     28      0
+SRTF            6.60    12.20     4.40   100.00   0.1786     28      0  <-- lowest average waiting time
+PRIORITY       10.60    16.20    10.60   100.00   0.1786     28      0
+RR             13.00    18.60     6.00   100.00   0.1786     28      0
+    chart saved: outputs/charts/cpu_comparison.png
+
+MEMORY — dataset memory_sample.txt, model fixed
+Model: FIXED partitions
+ALGORITHM    PLACED   UTIL %  INT.FRAG  EXT.FRAG    FREE  REJECTED
+------------------------------------------------------------------
+FIRST             3    43.59       559       400     400         1
+BEST              4    68.65       433         0     100         0
+WORST             3    43.59       659       300     300         1
+Best on this dataset: BEST (4 placed, 68.65% utilisation)
+    chart saved: outputs/charts/memory_fixed_comparison.png
+
+MEMORY — dataset memory_sample.txt, model dynamic
+Model: DYNAMIC partitions
+ALGORITHM    PLACED   UTIL %  INT.FRAG  EXT.FRAG    FREE  REJECTED
+------------------------------------------------------------------
+FIRST             3    43.59         0       959     959         1
+BEST              4    68.65         0         0     533         0
+WORST             3    43.59         0       959     959         1
+Best on this dataset: BEST (4 placed, 68.65% utilisation)
+    chart saved: outputs/charts/memory_dynamic_comparison.png
+
+DEADLOCK — dataset deadlock_sample.txt
+  Safety    : SAFE: P1 -> P3 -> P4 -> P0 -> P2
+  Detection : NO DEADLOCK
+
+DISK — dataset disk_sample.txt, head 53, direction up
+ALGORITHM     TOTAL   AVG/REQ  REQUESTS    JUMP
+-----------------------------------------------
+FCFS            640     80.00         8       0
+SSTF            236     29.50         8       0
+SCAN            331     41.38         8       0
+CSCAN           183     22.88         8     199
+Lowest total movement: CSCAN (183 cylinders). C-SCAN's jump is excluded above; add it for the charged path.
+    chart saved: outputs/charts/disk_comparison.png
+    chart saved: outputs/charts/disk_paths.png
+
+  Charts are in outputs/charts/. Run 'python3 main.py --report' for report.pdf.
+
+  Press Enter to continue...
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_154428.log

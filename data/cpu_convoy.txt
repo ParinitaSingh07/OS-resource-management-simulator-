@@ -1,0 +1,9 @@
+# Convoy-effect dataset: one long process arrives first, four short ones queue behind it.
+# FCFS (and non-preemptive Priority, since P1 has the best priority) delay every short
+# process by the full 40 units, while SJF/SRTF serve the short jobs first.
+# format: pid arrival burst priority      (smaller priority number = higher priority)
+P1 0 40 1
+P2 1 3 4
+P3 2 2 3
+P4 3 1 2
+P5 4 2 5

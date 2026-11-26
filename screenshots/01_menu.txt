@@ -1,0 +1,19 @@
+Terminal transcript — real run. Reproduce with: python3 main.py  (then choose 7)
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_153914.log
+  report.pdf: not built yet
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_153914.log

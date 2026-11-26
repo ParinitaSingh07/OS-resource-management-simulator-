@@ -1,0 +1,142 @@
+Terminal transcript — real run. Reproduce with: python3 main.py -> 1 (CPU) -> 2 (cpu_sample.txt) -> quantum 3
+
+==============================================================================
+                     OS RESOURCE MANAGEMENT SIMULATOR
+                  B.Tech CSE Operating Systems Capstone
+==============================================================================
+  datasets: 7 file(s) in data/   charts: available   log: session_20261120_153914.log
+  report.pdf: not built yet
+
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+==============================================================================
+CPU SCHEDULING
+==============================================================================
+
+  CPU datasets:
+   1) cpu_convoy.txt — Convoy-effect dataset: one long process arrives first, four short ones queue behind it.
+   2) cpu_sample.txt — CPU scheduling demo dataset: 5 processes, staggered arrivals
+   0) back to the main menu
+   c) enter a custom dataset now
+  Choose:   Round Robin time quantum [4]: 
+==============================================================================
+cpu_sample.txt — FCFS
+==============================================================================
+Algorithm : FCFS
+  PID     AT  BT  PRI   CT  TAT   WT   RT
+  ---------------------------------------
+  P1       0   8    3    8    8    0    0
+  P2       1   4    1   12   11    7    7
+  P3       2   9    4   21   19   10   10
+  P4       3   5    2   26   23   18   18
+  P5       4   2    5   28   24   22   22
+  ---------------------------------------
+  Averages  : waiting 11.40   turnaround 17.00   response 11.40
+  CPU       : utilisation 100.00%   throughput 0.1786 proc/unit   span 28   idle 0
+  Gantt     :
+    | P1 0-8 | P2 8-12 | P3 12-21 | P4 21-26 | P5 26-28 |
+    chart saved: outputs/charts/gantt_fcfs.png
+
+==============================================================================
+cpu_sample.txt — SJF
+==============================================================================
+Algorithm : SJF
+  PID     AT  BT  PRI   CT  TAT   WT   RT
+  ---------------------------------------
+  P1       0   8    3    8    8    0    0
+  P2       1   4    1   14   13    9    9
+  P3       2   9    4   28   26   17   17
+  P4       3   5    2   19   16   11   11
+  P5       4   2    5   10    6    4    4
+  ---------------------------------------
+  Averages  : waiting 8.20   turnaround 13.80   response 8.20
+  CPU       : utilisation 100.00%   throughput 0.1786 proc/unit   span 28   idle 0
+  Gantt     :
+    | P1 0-8 | P5 8-10 | P2 10-14 | P4 14-19 | P3 19-28 |
+    chart saved: outputs/charts/gantt_sjf.png
+
+==============================================================================
+cpu_sample.txt — SRTF
+==============================================================================
+Algorithm : SRTF
+  PID     AT  BT  PRI   CT  TAT   WT   RT
+  ---------------------------------------
+  P1       0   8    3   19   19   11    0
+  P2       1   4    1    5    4    0    0
+  P3       2   9    4   28   26   17   17
+  P4       3   5    2   12    9    4    4
+  P5       4   2    5    7    3    1    1
+  ---------------------------------------
+  Averages  : waiting 6.60   turnaround 12.20   response 4.40
+  CPU       : utilisation 100.00%   throughput 0.1786 proc/unit   span 28   idle 0
+  Gantt     :
+    | P1 0-1 | P2 1-5 | P5 5-7 | P4 7-12 | P1 12-19 | P3 19-28 |
+    chart saved: outputs/charts/gantt_srtf.png
+
+==============================================================================
+cpu_sample.txt — PRIORITY
+==============================================================================
+Algorithm : PRIORITY
+  PID     AT  BT  PRI   CT  TAT   WT   RT
+  ---------------------------------------
+  P1       0   8    3    8    8    0    0
+  P2       1   4    1   12   11    7    7
+  P3       2   9    4   26   24   15   15
+  P4       3   5    2   17   14    9    9
+  P5       4   2    5   28   24   22   22
+  ---------------------------------------
+  Averages  : waiting 10.60   turnaround 16.20   response 10.60
+  CPU       : utilisation 100.00%   throughput 0.1786 proc/unit   span 28   idle 0
+  Gantt     :
+    | P1 0-8 | P2 8-12 | P4 12-17 | P3 17-26 | P5 26-28 |
+    chart saved: outputs/charts/gantt_priority.png
+
+==============================================================================
+cpu_sample.txt — RR (quantum 3)
+==============================================================================
+Algorithm : RR  (quantum = 3)
+  PID     AT  BT  PRI   CT  TAT   WT   RT
+  ---------------------------------------
+  P1       0   8    3   25   25   17    0
+  P2       1   4    1   18   17   13    2
+  P3       2   9    4   28   26   17    4
+  P4       3   5    2   23   20   15    6
+  P5       4   2    5   17   13   11   11
+  ---------------------------------------
+  Averages  : waiting 14.60   turnaround 20.20   response 4.60
+  CPU       : utilisation 100.00%   throughput 0.1786 proc/unit   span 28   idle 0
+  Gantt     :
+    | P1 0-3 | P2 3-6 | P3 6-9 | P4 9-12 | P1 12-15 | P5 15-17 | P2 17-18 | P3 18-21 | P4 21-23 |
+    | P1 23-25 | P3 25-28 |
+    chart saved: outputs/charts/gantt_rr.png
+
+==============================================================================
+cpu_sample.txt — COMPARISON
+==============================================================================
+ALGORITHM     AVG WT  AVG TAT   AVG RT    CPU %   THR/PU   SPAN   IDLE
+----------------------------------------------------------------------
+FCFS           11.40    17.00    11.40   100.00   0.1786     28      0
+SJF             8.20    13.80     8.20   100.00   0.1786     28      0
+SRTF            6.60    12.20     4.40   100.00   0.1786     28      0  <-- lowest average waiting time
+PRIORITY       10.60    16.20    10.60   100.00   0.1786     28      0
+RR             14.60    20.20     4.60   100.00   0.1786     28      0
+    chart saved: outputs/charts/cpu_comparison.png
+
+  Press Enter to continue...
+  1) CPU Scheduling        FCFS, SJF, SRTF, Priority, Round Robin
+  2) Memory Management     First Fit, Best Fit, Worst Fit (fixed/dynamic)
+  3) Deadlock Management   Banker's safety, request algorithm, detection
+  4) Disk Scheduling       FCFS, SSTF, SCAN, C-SCAN
+  5) Performance Analysis  compare all four subsystems + charts
+  6) View Execution Logs   this session's entries and log file
+  7) Exit
+
+  Select an option [7]: 
+  Session ended. Log file: outputs/logs/session_20261120_153914.log
